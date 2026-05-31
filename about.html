@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PGA Studio - About Us</title>
+    <!-- استدعاء خط Dela Gothic One -->
+    <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- نفس الستايل العام بدون أي تغيير --- */
+        :root {
+            --bg-color: #e6cec1; 
+            --container-bg: #3c5458;
+            --text-primary: #85c4d6;
+            --text-secondary: #ffffff;
+            --highlight: #a288c9;
+            --nav-bg: #3c5458;
+            --footer-bg: #2b3e41;
+            --btn-bg: #3c5458;
+            --shadow: 0 8px 15px rgba(0,0,0,0.3);
+        }
+
+        .dark-mode {
+            --bg-color: #1a1a2e; 
+            --container-bg: #16213e;
+            --text-primary: #e94560;
+            --text-secondary: #f0f0f0;
+            --highlight: #0f3460;
+            --nav-bg: #0f3460;
+            --footer-bg: #121212;
+            --btn-bg: #e94560;
+            --shadow: 0 8px 15px rgba(0,0,0,0.6);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Dela Gothic One", sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-secondary);
+            transition: background-color 0.4s ease, color 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- Header & Navigation --- */
+        header {
+            padding: 20px 40px;
+        }
+
+        .top-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .header-logo {
+            width: 60px;
+            height: 60px;
+            background-color: #3b2a22;
+            border-radius: 10px;
+            padding: 5px;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+        }
+
+        .btn-toggle {
+            background-color: var(--container-bg);
+            color: var(--text-primary);
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s;
+        }
+        .btn-toggle:hover { transform: scale(1.05); }
+
+        nav {
+            background-color: var(--nav-bg);
+            border-radius: 30px;
+            padding: 10px 20px;
+            box-shadow: var(--shadow);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: space-around;
+            position: relative;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            padding: 10px 20px;
+            display: block;
+            position: relative;
+            z-index: 1;
+        }
+
+        .nav-indicator {
+            position: absolute;
+            bottom: 0;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-bottom: 4px solid var(--text-primary);
+            border-radius: 15px;
+            z-index: 0;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* --- تنسيقات صفحة About المخصصة للتصفح الطويل ومطابقة لـ about.jpg --- */
+        .about-main {
+            flex: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 40px;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            /* جعل المحتوى يمتد ليعطي مساحة تصفح عمودية بطول صفحتين تقريباً */
+            min-height: 160vh; 
+        }
+
+        .about-content-box {
+            background-color: var(--container-bg);
+            padding: 45px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            flex: 1.4;
+        }
+
+        .about-content-box h1 {
+            color: var(--text-primary);
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+
+        /* تصغير حجم الخط قليلاً مقارنة بالصفحة الرئيسية لتسهيل القراءة المكثفة */
+        .about-content-box p {
+            font-size: 0.95rem; 
+            color: var(--text-primary); /* متناسق مع اللون الموضح في الصورة about.jpg */
+            margin-bottom: 35px;
+            line-height: 1.8;
+            letter-spacing: 0.5px;
+        }
+
+        .about-image-box {
+            flex: 0.6;
+            display: flex;
+            justify-content: center;
+            position: sticky; /* جعل الصورة ثابتة نسبياً أثناء التصفح لأسفل */
+            top: 40px;
+        }
+
+        .main-image {
+            max-width: 100%;
+            height: auto;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .main-image:hover { transform: scale(1.05); }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--footer-bg);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 40px;
+        }
+
+        /* --- الاتجاهات RTL --- */
+        [dir="rtl"] .about-content-box { text-align: right; }
+
+        @media (max-width: 768px) {
+            .about-main { flex-direction: column-reverse; align-items: center; }
+            [dir="rtl"] .about-content-box { text-align: center; }
+            nav ul { flex-direction: column; align-items: center; }
+            .nav-indicator { display: none; }
+            .about-image-box { position: relative; top: 0; }
+        }
+    </style>
+</head>
+<body class="light-mode">
+    <header>
+        <div class="top-controls">
+            <div class="logo-area">
+                <img src="pgalogo.png" alt="PGA Logo" class="header-logo">
+            </div>
+            <div class="toggle-buttons">
+                <button id="lang-toggle" class="btn-toggle">AR/EN</button>
+                <button id="theme-toggle" class="btn-toggle">🌓</button>
+            </div>
+        </div>
+        
+        <nav>
+            <ul id="nav-list">
+                <li><a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a></li>
+                <!-- تفعيل التبويب الحالي About ومحاذاة المؤشر عليه -->
+                <li><a href="about.html" class="active" data-en="About" data-ar="حول">About</a></li>
+                <li><a href="projects.html" data-en="Projects" data-ar="المشاريع">Projects</a></li>
+                <li><a href="contact.html" data-en="Contact" data-ar="تواصل معنا">Contact</a></li>
+                <div class="nav-indicator"></div>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="about-main">
+        <!-- قسم النصوص الطويلة القابلة للتمرير السلس -->
+        <div class="about-content-box">
+            <h1 data-en="Our Story" data-ar="قصتنا">Our Story</h1>
+            
+            <p data-en="PGA Studio started with a simple vision: to push the boundaries of modern game programming and create experiences that stick with players forever. Our journey began with a small group of ambitious developers and has grown into a structured engine of creativity." 
+               data-ar="بدأ استوديو PGA برؤية بسيطة: تخطي حدود برمجة الألعاب الحديثة وصنع تجارب تظل راسخة في أذهان اللاعبين للأبد. بدأت رحلتنا بمجموعة صغيرة من المطورين الطموحين ونمت لتصبح محركاً متكاملاً للإبداع.">
+                PGA Studio started with a simple vision: to push the boundaries of modern game programming and create experiences that stick with players forever. Our journey began with a small group of ambitious developers and has grown into a structured engine of creativity.
+            </p>
+
+            <p data-en="We believe that game development is not just about writing code; it's about storytelling, atmosphere, and interactive design. Every line of logic we implement is geared towards delivering high-performance mechanics paired with unique gameplay concepts."
+               data-ar="نحن نؤمن بأن تطوير الألعاب لا يقتصر فقط على كتابة الكود البرمجي؛ بل يتعلق بسرد القصص، بناء الأجواء، والتصميم التفاعلي. كل سطر برمجى نكتبه يهدف إلى تقديم آليات ميكانيكية عالية الأداء ممزوجة بأفكار لعب فريدة.">
+                We believe that game development is not just about writing code; it's about storytelling, atmosphere, and interactive design. Every line of logic we implement is geared towards delivering high-performance mechanics paired with unique gameplay concepts.
+            </p>
+
+            <p data-en="Our ultimate goals target both indie publishing and collaborative milestones. Whether we are forging atmospheric adventures or competitive multiplayers, the focus stays identical: flawless gameplay and lasting player immersion."
+               data-ar="تستهدف أهدافنا النهائية النشر المستقل وتحقيق شراكات قوية. سواء كنا نطور مغامرات غامرة أو ألعاباً جماعية تنافسية، يظل التركيز واحداً وثابتاً: أسلوب لعب خالٍ من العيوب واندماج تام للاعبين.">
+                Our ultimate goals target both indie publishing and collaborative milestones. Whether we are forging atmospheric adventures or competitive multiplayers, the focus stays identical: flawless gameplay and lasting player immersion.
+            </p>
+
+            <p data-en="As we continue to grow through 2026 and beyond, we expand our toolsets and pipelines to incorporate cutting-edge design trends, ensuring our community always receives top-tier content."
+               data-ar="ومع استمرارنا في النمو خلال عام 2026 وما بعده، نعمل على توسيع أدواتنا ومساراتنا البرمجية لدمج أحدث اتجاهات التصميم، مما يضمن حصول مجتمعنا دائماً على محتوى من الصف الأول.">
+                As we continue to grow through 2026 and beyond, we expand our toolsets and pipelines to incorporate cutting-edge design trends, ensuring our community always receives top-tier content.
+            </p>
+        </div>
+
+        <!-- الجانب الأيمن ويحتوي على الشعار المقابل للنص المماثل لملف about.jpg -->
+        <div class="about-image-box">
+            <img src="pga.png" alt="PGA Image" class="main-image">
+        </div>
+    </main>
+
+    <footer>
+        <p data-en="© 2026 All Rights Reserved" data-ar="© 2026 جميع الحقوق محفوظة">© 2026 All Rights Reserved</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- 1. Navbar Active Animation ---
+            const updateIndicator = () => {
+                const activeLink = document.querySelector('nav a.active');
+                const indicator = document.querySelector('.nav-indicator');
+                
+                if (activeLink && indicator) {
+                    indicator.style.width = `${activeLink.offsetWidth}px`;
+                    indicator.style.left = `${activeLink.offsetLeft}px`;
+                }
+            };
+
+            updateIndicator();
+            window.addEventListener('resize', updateIndicator);
+
+            // --- 2. Theme Switcher ---
+            const themeBtn = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            if(localStorage.getItem('theme') === 'dark') {
+                body.classList.replace('light-mode', 'dark-mode');
+            }
+
+            themeBtn.addEventListener('click', () => {
+                if (body.classList.contains('light-mode')) {
+                    body.classList.replace('light-mode', 'dark-mode');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    body.classList.replace('dark-mode', 'light-mode');
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // --- 3. Language Switcher (Localization) ---
+            const langBtn = document.getElementById('lang-toggle');
+            let currentLang = 'en';
+
+            langBtn.addEventListener('click', () => {
+                currentLang = currentLang === 'en' ? 'ar' : 'en';
+                document.documentElement.lang = currentLang;
+                document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+
+                const translatableElements = document.querySelectorAll('[data-en][data-ar]');
+                translatableElements.forEach(el => {
+                    el.innerHTML = el.getAttribute(`data-${currentLang}`);
+                });
+
+                setTimeout(updateIndicator, 50); 
+            });
+        });
+    </script>
+</body>
+</html>

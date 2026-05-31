@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PGA Studio - Projects</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- المتغيرات العامة (نفس الستايل السابق) --- */
+        :root {
+            --bg-color: #e6cec1; 
+            --container-bg: #3c5458;
+            --card-bg: #618790; /* لون أفتح قليلاً للبطاقة ليطابق الصورة المرفقة */
+            --text-primary: #85c4d6;
+            --text-card: #e6cec1; /* لون النص داخل البطاقة */
+            --text-secondary: #ffffff;
+            --highlight: #a288c9;
+            --nav-bg: #3c5458;
+            --footer-bg: #2b3e41;
+            --shadow: 0 8px 15px rgba(0,0,0,0.3);
+        }
+
+        .dark-mode {
+            --bg-color: #1a1a2e; 
+            --container-bg: #16213e;
+            --card-bg: #1f305e;
+            --text-primary: #e94560;
+            --text-card: #f0f0f0;
+            --text-secondary: #f0f0f0;
+            --highlight: #0f3460;
+            --nav-bg: #0f3460;
+            --footer-bg: #121212;
+            --shadow: 0 8px 15px rgba(0,0,0,0.6);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Dela Gothic One", sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-secondary);
+            transition: background-color 0.4s ease, color 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- Header & Navigation --- */
+        header { padding: 20px 40px; }
+
+        .top-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .header-logo {
+            width: 60px;
+            height: 60px;
+            background-color: #3b2a22;
+            border-radius: 10px;
+            padding: 5px;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+        }
+
+        .btn-toggle {
+            background-color: var(--container-bg);
+            color: var(--text-primary);
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s;
+        }
+        .btn-toggle:hover { transform: scale(1.05); }
+
+        nav {
+            background-color: var(--nav-bg);
+            border-radius: 30px;
+            padding: 10px 20px;
+            box-shadow: var(--shadow);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: space-around;
+            position: relative;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            padding: 10px 20px;
+            display: block;
+            position: relative;
+            z-index: 1;
+        }
+
+        .nav-indicator {
+            position: absolute;
+            bottom: 0;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-bottom: 4px solid var(--text-primary);
+            border-radius: 15px;
+            z-index: 0;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* --- تنسيقات صفحة المشاريع Projects --- */
+        .projects-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* ترويسة المشاريع (الشعار وكلمة Projects) */
+        .projects-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .projects-header img {
+            max-width: 200px; /* شعار PGA المركزي */
+            margin-bottom: 10px;
+        }
+
+        .projects-header h1 {
+            color: #bfa175; /* لون مقارب للصورة */
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        /* قسم اللعبة الفردية */
+        .project-item {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .project-title {
+            color: var(--text-card); /* لون النص المائل للبيج */
+            font-size: 2rem;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        /* بطاقة المشروع */
+        .project-card {
+            background-color: var(--card-bg);
+            border-radius: 40px;
+            padding: 40px;
+            width: 80%;
+            display: flex;
+            align-items: flex-start;
+            gap: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        /* صورة اللعبة (المربع الأبيض سابقاً) */
+        .project-image {
+            width: 200px;
+            height: 200px;
+            background-color: #ffffff; /* احتياطي في حال عدم تحميل الصورة */
+            border-radius: 25px;
+            object-fit: cover;
+            flex-shrink: 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        /* نصوص اللعبة داخل البطاقة */
+        .project-text {
+            color: var(--text-card);
+            font-size: 1.2rem;
+            line-height: 1.8;
+            text-align: right; /* محاذاة النص داخل البطاقة كما في الصورة */
+            word-wrap: break-word;
+        }
+
+        /* --- الاتجاهات RTL --- */
+        [dir="rtl"] .project-text { text-align: left; }
+        [dir="rtl"] .project-card { flex-direction: row-reverse; }
+
+        /* Responsive للموبايل */
+        @media (max-width: 768px) {
+            nav ul { flex-direction: column; align-items: center; }
+            .nav-indicator { display: none; }
+            
+            .project-card {
+                flex-direction: column !important; /* ترتيب عمودي في الشاشات الصغيرة */
+                align-items: center;
+                padding: 30px 20px;
+                width: 95%;
+            }
+            .project-text {
+                text-align: center !important;
+            }
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--footer-bg);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body class="light-mode">
+    <header>
+        <div class="top-controls">
+            <div class="logo-area">
+                <img src="pgalogo.png" alt="PGA Logo" class="header-logo">
+            </div>
+            <div class="toggle-buttons">
+                <button id="lang-toggle" class="btn-toggle">AR/EN</button>
+                <button id="theme-toggle" class="btn-toggle">🌓</button>
+            </div>
+        </div>
+        
+        <nav>
+            <ul id="nav-list">
+                <li><a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a></li>
+                <li><a href="about.html" data-en="About" data-ar="حول">About</a></li>
+                <li><a href="projects.html" class="active" data-en="Projects" data-ar="المشاريع">Projects</a></li>
+                <li><a href="contact.html" data-en="Contact" data-ar="تواصل معنا">Contact</a></li>
+                <div class="nav-indicator"></div>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="projects-main">
+        <div class="projects-header">
+            <img src="pga.png" alt="PGA Title Logo">
+            <h1 data-en="Projects" data-ar="المشاريع">Projects</h1>
+        </div>
+
+        <div class="project-item">
+            <h2 class="project-title" data-en="virus 94" data-ar="فايروس 94">virus 94</h2>
+            
+            <div class="project-card">
+                <img src="virus94.png" alt="Virus 94 Game" class="project-image">
+                
+                <div class="project-text">
+                    <p data-en="Dive into the world of Virus 94. A thrilling and unique gaming experience designed to challenge your skills. Navigate through complex systems, overcome security protocols, and survive the digital onslaught in this fast-paced adventure." 
+                       data-ar="اغص في عالم فايروس 94. تجربة لعب مثيرة وفريدة مصممة لتحدي مهاراتك. تنقل عبر الأنظمة المعقدة، وتجاوز البروتوكولات الأمنية، وابق على قيد الحياة في هذا الهجوم الرقمي السريع.">
+                        Dive into the world of Virus 94. A thrilling and unique gaming experience designed to challenge your skills. Navigate through complex systems, overcome security protocols, and survive the digital onslaught in this fast-paced adventure.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p data-en="© 2026 All Rights Reserved" data-ar="© 2026 جميع الحقوق محفوظة">© 2026 All Rights Reserved</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- 1. Navbar Active Animation ---
+            const updateIndicator = () => {
+                const activeLink = document.querySelector('nav a.active');
+                const indicator = document.querySelector('.nav-indicator');
+                
+                if (activeLink && indicator) {
+                    indicator.style.width = `${activeLink.offsetWidth}px`;
+                    indicator.style.left = `${activeLink.offsetLeft}px`;
+                }
+            };
+
+            updateIndicator();
+            window.addEventListener('resize', updateIndicator);
+
+            // --- 2. Theme Switcher ---
+            const themeBtn = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            if(localStorage.getItem('theme') === 'dark') {
+                body.classList.replace('light-mode', 'dark-mode');
+            }
+
+            themeBtn.addEventListener('click', () => {
+                if (body.classList.contains('light-mode')) {
+                    body.classList.replace('light-mode', 'dark-mode');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    body.classList.replace('dark-mode', 'light-mode');
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // --- 3. Language Switcher (Localization) ---
+            const langBtn = document.getElementById('lang-toggle');
+            let currentLang = 'en';
+
+            langBtn.addEventListener('click', () => {
+                currentLang = currentLang === 'en' ? 'ar' : 'en';
+                document.documentElement.lang = currentLang;
+                document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+
+                const translatableElements = document.querySelectorAll('[data-en][data-ar]');
+                translatableElements.forEach(el => {
+                    el.innerHTML = el.getAttribute(`data-${currentLang}`);
+                });
+
+                setTimeout(updateIndicator, 50); 
+            });
+        });
+    </script>
+</body>
+</html>

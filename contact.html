@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PGA Studio - Contact Us</title>
+    <!-- استدعاء خط Dela Gothic One -->
+    <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- الثيمات والألوان العامة الثابتة (مطابقة للتصميم الأصلي) --- */
+        :root {
+            --bg-color: #e6cec1; 
+            --container-bg: #3c5458;
+            --form-bg: #74969f; /* لون الصندوق المائل للأزرق الفاتح من الصورة contact.jpg */
+            --text-primary: #85c4d6;
+            --text-secondary: #ffffff;
+            --input-text: #111111;
+            --highlight: #a288c9;
+            --nav-bg: #3c5458;
+            --footer-bg: #2b3e41;
+            --shadow: 0 8px 15px rgba(0,0,0,0.3);
+        }
+
+        .dark-mode {
+            --bg-color: #1a1a2e; 
+            --container-bg: #16213e;
+            --form-bg: #2a4158;
+            --text-primary: #e94560;
+            --text-secondary: #f0f0f0;
+            --input-text: #111111;
+            --highlight: #0f3460;
+            --nav-bg: #0f3460;
+            --footer-bg: #121212;
+            --shadow: 0 8px 15px rgba(0,0,0,0.6);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Dela Gothic One", sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-secondary);
+            transition: background-color 0.4s ease, color 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* --- شريط التنقل العلوي --- */
+        header { padding: 20px 40px; }
+
+        .top-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .header-logo {
+            width: 60px;
+            height: 60px;
+            background-color: #3b2a22;
+            border-radius: 10px;
+            padding: 5px;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+        }
+
+        .btn-toggle {
+            background-color: var(--container-bg);
+            color: var(--text-primary);
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s;
+        }
+        .btn-toggle:hover { transform: scale(1.05); }
+
+        nav {
+            background-color: var(--nav-bg);
+            border-radius: 30px;
+            padding: 10px 20px;
+            box-shadow: var(--shadow);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: space-around;
+            position: relative;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            padding: 10px 20px;
+            display: block;
+            position: relative;
+            z-index: 1;
+        }
+
+        .nav-indicator {
+            position: absolute;
+            bottom: 0;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-bottom: 4px solid var(--text-primary);
+            border-radius: 15px;
+            z-index: 0;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* --- محاذاة وتنسيق التصميم الداخلي لصفحة التواصل --- */
+        .contact-main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .contact-container {
+            background-color: var(--form-bg);
+            padding: 50px 40px;
+            border-radius: 40px;
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        /* مطابقة المدخلات لشكل الكبسولة البيضاء بالوسط تماماً */
+        .contact-input, .contact-textarea {
+            width: 100%;
+            border: none;
+            outline: none;
+            background-color: #f7fcfd; 
+            color: var(--input-text);
+            font-size: 1.3rem;
+            padding: 18px 25px;
+            border-radius: 40px; 
+            text-align: center; 
+            box-shadow: inset 0 3px 6px rgba(0,0,0,0.1);
+        }
+
+        .contact-textarea {
+            border-radius: 35px; 
+            min-height: 250px;
+            resize: none;
+            padding-top: 35px;
+        }
+
+        ::placeholder {
+            color: #555;
+            opacity: 0.7;
+        }
+
+        .submit-btn {
+            background-color: var(--container-bg);
+            color: var(--text-primary);
+            border: none;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+            align-self: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .submit-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* --- صندوق الأيقونات أسفل اليسار تماماً كما بالصورة --- */
+        .social-box {
+            position: absolute;
+            bottom: 40px;
+            left: 40px;
+            background-color: var(--form-bg);
+            padding: 10px 25px;
+            border-radius: 30px;
+            display: flex;
+            gap: 20px;
+            box-shadow: var(--shadow);
+            align-items: center;
+        }
+
+        .social-link {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s;
+        }
+        .social-link:hover { transform: scale(1.15); }
+
+        .social-link svg {
+            width: 35px;
+            height: 35px;
+            fill: none;
+            stroke: #111;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* الاتجاهات عند قلب اللغة للعربية */
+        [dir="rtl"] .social-box { left: auto; right: 40px; }
+
+        @media (max-width: 768px) {
+            .contact-main { padding: 20px; flex-direction: column; }
+            nav ul { flex-direction: column; align-items: center; }
+            .nav-indicator { display: none; }
+            .contact-container { padding: 30px 20px; }
+            .social-box { position: relative; bottom: 0; left: 0; right: 0; margin-top: 30px; justify-content: center; }
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--footer-bg);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body class="light-mode">
+    <header>
+        <div class="top-controls">
+            <div class="logo-area">
+                <img src="pgalogo.png" alt="PGA Logo" class="header-logo">
+            </div>
+            <div class="toggle-buttons">
+                <button id="lang-toggle" class="btn-toggle">AR/EN</button>
+                <button id="theme-toggle" class="btn-toggle">🌓</button>
+            </div>
+        </div>
+        
+        <nav>
+            <ul id="nav-list">
+                <li><a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a></li>
+                <li><a href="about.html" data-en="About" data-ar="حول">About</a></li>
+                <li><a href="projects.html" data-en="Projects" data-ar="المشاريع">Projects</a></li>
+                <li><a href="contact.html" class="active" data-en="Contact" data-ar="تواصل معنا">Contact</a></li>
+                <div class="nav-indicator"></div>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="contact-main">
+        
+        <!-- الأيقونات الاجتماعية أسفل اليسار مأخوذة من رسم contact.jpg -->
+        <div class="social-box">
+            <!-- يوتيوب -->
+            <a href="#" class="social-link" title="YouTube">
+                <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="#111"></polygon></svg>
+            </a>
+            <!-- البريد -->
+            <a href="#" class="social-link" title="Email">
+                <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            </a>
+            <!-- تويتر / X -->
+            <a href="#" class="social-link" title="X">
+                <svg viewBox="0 0 24 24"><line x1="4" y1="4" x2="20" y2="20"></line><line x1="20" y1="4" x2="4" y2="20"></line></svg>
+            </a>
+        </div>
+
+        <!-- حقول الفورم المحدثة والمستقرة والآمنة لتفادي الـ Crash -->
+        <form class="contact-container" action="https://formspree.io/xyz@example.com" method="POST" id="contactForm">
+            
+            <!-- حقل الاسم المكتوب داخله تلميح التصميم المرفق -->
+            <input type="text" name="name" class="contact-input" id="input-name" required placeholder="your name.......">
+            
+            <!-- حقل الإيميل المخفي وظيفياً والمطلوب للاستقبال النظيف -->
+            <input type="email" name="_replyto" class="contact-input" id="input-email" required placeholder="your email.......">
+            
+            <!-- مربع الرسالة الكبير -->
+            <textarea name="message" class="contact-textarea" id="input-message" required placeholder="your masge herr"></textarea>
+            
+            <!-- زر الإرسال المدمج لإنهاء العملية بنجاح وبنفس الخط والستايل -->
+            <button type="submit" class="submit-btn">
+                <span data-en="Send" data-ar="إرسال">Send</span>
+            </button>
+        </form>
+
+    </main>
+
+    <footer>
+        <p data-en="© 2026 All Rights Reserved" data-ar="© 2026 جميع الحقوق محفوظة">© 2026 All Rights Reserved</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // ضبط الرابط المباشر لإيميل المطور تلقائياً ليعمل دون كراش
+            const form = document.getElementById('contactForm');
+            form.action = "https://formsubmit.co/teamkhz.agp@gmail.com";
+
+            // --- 1. حركة وتحديث مؤشر الـ Navbar الشامل الفوري ---
+            const updateIndicator = () => {
+                const activeLink = document.querySelector('nav a.active');
+                const indicator = document.querySelector('.nav-indicator');
+                
+                if (activeLink && indicator) {
+                    indicator.style.width = `${activeLink.offsetWidth}px`;
+                    indicator.style.left = `${activeLink.offsetLeft}px`;
+                }
+            };
+            updateIndicator();
+            window.addEventListener('resize', updateIndicator);
+
+            // --- 2. التبديل الفوري بين الأوضاع الليلي والنهاري وحفظه تلقائياً ---
+            const themeBtn = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            if(localStorage.getItem('theme') === 'dark') {
+                body.classList.replace('light-mode', 'dark-mode');
+            }
+
+            themeBtn.addEventListener('click', () => {
+                if (body.classList.contains('light-mode')) {
+                    body.classList.replace('light-mode', 'dark-mode');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    body.classList.replace('dark-mode', 'light-mode');
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // --- 3. ترجمة الحقول والـ Placeholders الحية عند الضغط على زر اللغات ---
+            const langBtn = document.getElementById('lang-toggle');
+            let currentLang = 'en';
+
+            const inputName = document.getElementById('input-name');
+            const inputEmail = document.getElementById('input-email');
+            const inputMessage = document.getElementById('input-message');
+
+            langBtn.addEventListener('click', () => {
+                currentLang = currentLang === 'en' ? 'ar' : 'en';
+                document.documentElement.lang = currentLang;
+                document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+
+                const translatableElements = document.querySelectorAll('[data-en][data-ar]');
+                translatableElements.forEach(el => {
+                    el.innerHTML = el.getAttribute(`data-${currentLang}`);
+                });
+
+                if (currentLang === 'ar') {
+                    inputName.placeholder = "اسمك.......";
+                    inputEmail.placeholder = "بريدك الإلكتروني.......";
+                    inputMessage.placeholder = "رسالتك هنا.......";
+                } else {
+                    inputName.placeholder = "your name.......";
+                    inputEmail.placeholder = "your email.......";
+                    inputMessage.placeholder = "your masge herr";
+                }
+
+                setTimeout(updateIndicator, 50); 
+            });
+        });
+    </script>
+</body>
+</html>

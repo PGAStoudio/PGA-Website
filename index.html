@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PGA Studio - Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="light-mode">
+    <header>
+        <div class="top-controls">
+            <div class="logo-area">
+                <img src="pgalogo.png" alt="PGA Logo" class="clickable-asset header-logo" id="header-logo">
+            </div>
+            <div class="toggle-buttons">
+                <button id="lang-toggle" class="btn-toggle">AR/EN</button>
+                <button id="theme-toggle" class="btn-toggle">🌓</button>
+            </div>
+        </div>
+        
+        <nav>
+            <ul id="nav-list">
+                <li><a href="index.html" class="active" data-en="Home" data-ar="الرئيسية">Home</a></li>
+                <li><a href="about.html" data-en="About" data-ar="حول">About</a></li>
+                <li><a href="projects.html" data-en="Projects" data-ar="المشاريع">Projects</a></li>
+                <li><a href="contact.html" data-en="Contact" data-ar="تواصل معنا">Contact</a></li>
+                <div class="nav-indicator"></div>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="home-main">
+        <div class="content-box">
+            <h1 data-en="PGA Studio is more <span class='highlight-purple'>creative !</span>" 
+                data-ar="استوديو PGA أكثر <span class='highlight-purple'>إبداعاً !</span>">
+                PGA Studio is more <span class="highlight-purple">creative !</span>
+            </h1>
+            
+            <p data-en="Whether you're a gamer, creator, or even developer, PGA is for you." 
+               data-ar="سواء كنت لاعباً، صانع محتوى، أو حتى مطوراً، PGA مناسب لك.">
+                Whether you're a gamer, creator, or even developer, PGA is for you.
+            </p>
+            
+            <p data-en="PGA is an ambitious game programming studio with many goals it wants to achieve." 
+               data-ar="PGA هو استوديو برمجة ألعاب طموح لديه الكثير من الأهداف ليحققها.">
+                PGA is an ambitious game programming studio with many goals it wants to achieve.
+            </p>
+            
+            <div class="action-area">
+                <a href="about.html" class="btn-more" data-en="More" data-ar="المزيد">More</a>
+            </div>
+        </div>
+
+        <div class="image-box">
+            <img src="pga.png" alt="PGA Image" class="clickable-asset main-image">
+        </div>
+    </main>
+
+    <footer>
+        <p data-en="© 2026 All Rights Reserved" data-ar="© 2026 جميع الحقوق محفوظة">© 2026 All Rights Reserved</p>
+    </footer>
+
+    <div class="bottom-sheet-overlay" id="bottom-sheet">
+        <div class="sheet-content">
+            <button class="close-sheet" id="close-sheet">&times;</button>
+            <h2 data-en="The Studio" data-ar="الاستوديو">The Studio</h2>
+            <p data-en="Welcome to PGA Studio. We are a creative team dedicated to crafting immersive gaming experiences. Stay tuned for our upcoming projects!" 
+               data-ar="مرحباً بكم في استوديو PGA. نحن فريق مبدع مكرس لتقديم تجارب ألعاب غامرة. ترقبوا مشاريعنا القادمة!">
+                Welcome to PGA Studio. We are a creative team dedicated to crafting immersive gaming experiences. Stay tuned for our upcoming projects!
+            </p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
