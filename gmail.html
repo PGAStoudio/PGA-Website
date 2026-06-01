@@ -1,0 +1,326 @@
+﻿<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PGA Studio - Gmail</title>
+    <link rel="icon" href="pgap.png" type="image/png">
+    <!-- استدعاء خط Dela Gothic One -->
+    <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #e6cec1;
+            --container-bg: #3c5458;
+            --form-bg: #74969f;
+            --text-primary: #85c4d6;
+            --text-secondary: #ffffff;
+            --text-dark: #111111;
+            --highlight: #a288c9;
+            --nav-bg: #3c5458;
+            --footer-bg: #2b3e41;
+            --shadow: 0 8px 15px rgba(0,0,0,0.3);
+        }
+
+        .dark-mode {
+            --bg-color: #1a1a2e;
+            --container-bg: #16213e;
+            --form-bg: #2a4158;
+            --text-primary: #e94560;
+            --text-secondary: #f0f0f0;
+            --text-dark: #0a0a0a;
+            --highlight: #0f3460;
+            --nav-bg: #0f3460;
+            --footer-bg: #121212;
+            --shadow: 0 8px 15px rgba(0,0,0,0.6);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Dela Gothic One', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-secondary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        header { padding: 20px 40px; }
+
+        .top-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .header-logo {
+            width: 60px;
+            height: 60px;
+            background-color: #3b2a22;
+            border-radius: 10px;
+            padding: 5px;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+        }
+
+        .btn-toggle {
+            background-color: var(--container-bg);
+            color: var(--text-primary);
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s;
+        }
+        .btn-toggle:hover { transform: scale(1.05); }
+
+        nav {
+            background-color: var(--nav-bg);
+            border-radius: 30px;
+            padding: 10px 20px;
+            box-shadow: var(--shadow);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: space-around;
+            position: relative;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            padding: 10px 20px;
+            display: block;
+            position: relative;
+            z-index: 1;
+        }
+
+        .nav-indicator {
+            position: absolute;
+            bottom: 0;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-bottom: 4px solid var(--text-primary);
+            border-radius: 15px;
+            z-index: 0;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .gmail-main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .gmail-card {
+            background-color: var(--form-bg);
+            padding: 45px 40px;
+            border-radius: 40px;
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 620px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            text-align: center;
+        }
+
+        .gmail-card h1 {
+            font-size: 2.4rem;
+            color: var(--text-primary);
+        }
+
+        .gmail-card p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .email-box {
+            background-color: #f7fcfd;
+            color: var(--text-dark);
+            border-radius: 30px;
+            padding: 25px 30px;
+            box-shadow: inset 0 3px 6px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            align-items: center;
+        }
+
+        .email-text {
+            font-size: 1.5rem;
+            word-break: break-all;
+        }
+
+        .email-actions {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .email-link,
+        .copy-btn {
+            background-color: var(--container-bg);
+            color: var(--text-primary);
+            text-decoration: none;
+            border: none;
+            padding: 14px 26px;
+            border-radius: 30px;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s;
+        }
+
+        .email-link:hover,
+        .copy-btn:hover { transform: scale(1.05); }
+
+        .hint-text {
+            color: rgba(31, 29, 29, 0.75);
+            font-size: 0.95rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--footer-bg);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            header { padding: 20px; }
+            nav ul { flex-direction: column; align-items: center; }
+            .nav-indicator { display: none; }
+            .gmail-main { padding: 20px; }
+            .gmail-card { padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body class="light-mode">
+    <header>
+        <div class="top-controls">
+            <div class="logo-area">
+                <img src="pgalogo.png" alt="PGA Logo" class="header-logo">
+            </div>
+            <div class="toggle-buttons">
+                <button id="lang-toggle" class="btn-toggle">AR/EN</button>
+                <button id="theme-toggle" class="btn-toggle">🌓</button>
+            </div>
+        </div>
+
+        <nav>
+            <ul id="nav-list">
+                <li><a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a></li>
+                <li><a href="about.html" data-en="About" data-ar="حول">About</a></li>
+                <li><a href="projects.html" data-en="Projects" data-ar="المشاريع">Projects</a></li>
+                <li><a href="contact.html" data-en="Contact" data-ar="تواصل معنا">Contact</a></li>
+                <li><a href="gmail.html" class="active" data-en="Gmail" data-ar="جيميل">Gmail</a></li>
+                <div class="nav-indicator"></div>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="gmail-main">
+        <section class="gmail-card">
+            <h1 data-en="Contact via Gmail" data-ar="اتصل عبر الجيميل">Contact via Gmail</h1>
+            <p data-en="This page is dedicated to the official email address for PGA Studio. Use the button below to open your mail app or copy the email address quickly." data-ar="هذه الصفحة مخصصة للبريد الرسمي لـ PGA Studio. استخدم الزر أدناه لفتح تطبيق البريد أو نسخ العنوان بسرعة.">This page is dedicated to the official email address for PGA Studio. Use the button below to open your mail app or copy the email address quickly.</p>
+
+            <div class="email-box">
+                <div class="email-text" id="emailText">teamkhz.agp@gmail.com</div>
+                <div class="email-actions">
+                    <a href="mailto:teamkhz.agp@gmail.com" class="email-link" id="openMail" data-en="Open Mail" data-ar="فتح البريد">Open Mail</a>
+                    <button class="copy-btn" id="copyEmail" data-en="Copy Email" data-ar="نسخ البريد">Copy Email</button>
+                </div>
+                <div class="hint-text" id="copyHint" data-en="Click to copy the email address." data-ar="انقر لنسخ عنوان البريد.">Click to copy the email address.</div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p data-en="© 2026 All Rights Reserved" data-ar="© 2026 جميع الحقوق محفوظة">© 2026 All Rights Reserved</p>
+    </footer>
+
+    <script>
+        const updateIndicator = () => {
+            const activeLink = document.querySelector('nav a.active');
+            const indicator = document.querySelector('.nav-indicator');
+            if (activeLink && indicator) {
+                indicator.style.width = `${activeLink.offsetWidth}px`;
+                indicator.style.left = `${activeLink.offsetLeft}px`;
+            }
+        };
+
+        window.addEventListener('load', updateIndicator);
+        window.addEventListener('resize', updateIndicator);
+
+        const themeBtn = document.getElementById('theme-toggle');
+        const langBtn = document.getElementById('lang-toggle');
+        const body = document.body;
+        const emailText = document.getElementById('emailText');
+        const copyBtn = document.getElementById('copyEmail');
+        const copyHint = document.getElementById('copyHint');
+        let currentLang = 'en';
+
+        if (localStorage.getItem('theme') === 'dark') {
+            body.classList.replace('light-mode', 'dark-mode');
+        }
+
+        themeBtn.addEventListener('click', () => {
+            if (body.classList.contains('light-mode')) {
+                body.classList.replace('light-mode', 'dark-mode');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.classList.replace('dark-mode', 'light-mode');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        const setLanguage = (lang) => {
+            currentLang = lang;
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            document.querySelectorAll('[data-en][data-ar]').forEach(el => {
+                el.innerHTML = el.getAttribute(`data-${lang}`);
+            });
+            updateIndicator();
+        };
+
+        langBtn.addEventListener('click', () => {
+            setLanguage(currentLang === 'en' ? 'ar' : 'en');
+        });
+
+        copyBtn.addEventListener('click', async () => {
+            try {
+                await navigator.clipboard.writeText(emailText.textContent.trim());
+                copyHint.textContent = currentLang === 'ar' ? 'تم نسخ البريد!' : 'Email copied!';
+                setTimeout(() => {
+                    copyHint.textContent = currentLang === 'ar' ? 'انقر لنسخ عنوان البريد.' : 'Click to copy the email address.';
+                }, 1800);
+            } catch (err) {
+                copyHint.textContent = currentLang === 'ar' ? 'فشل النسخ، حاول مرة أخرى.' : 'Copy failed, try again.';
+            }
+        });
+    </script>
+</body>
+</html>
