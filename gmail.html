@@ -48,6 +48,47 @@
             display: flex;
             flex-direction: column;
             transition: background-color 0.4s ease, color 0.4s ease;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before,
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            transform: translateZ(0);
+        }
+
+        body::before {
+            background-image:
+                radial-gradient(circle at 15% 18%, rgba(255,255,255,0.14), transparent 14%),
+                radial-gradient(circle at 80% 12%, rgba(255,255,255,0.12), transparent 12%),
+                radial-gradient(circle at 45% 72%, rgba(255,255,255,0.08), transparent 18%);
+            filter: blur(12px);
+            opacity: 0.45;
+            animation: drift-circles 24s ease-in-out infinite alternate;
+        }
+
+        body::after {
+            background-image:
+                radial-gradient(circle at 32% 82%, rgba(255,255,255,0.10), transparent 13%),
+                radial-gradient(circle at 70% 42%, rgba(255,255,255,0.08), transparent 12%);
+            filter: blur(16px);
+            opacity: 0.28;
+            animation: drift-circles 28s ease-in-out infinite alternate-reverse;
+        }
+
+        body > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes drift-circles {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(-18px) scale(1.02); }
         }
 
         header { padding: 20px 40px; }
@@ -63,10 +104,11 @@
             width: 60px;
             height: 60px;
             background-color: #3b2a22;
-            border-radius: 10px;
+            border-radius: 50%;
             padding: 5px;
             cursor: pointer;
             box-shadow: var(--shadow);
+            object-fit: cover;
         }
 
         .btn-toggle {
@@ -221,7 +263,7 @@
     <header>
         <div class="top-controls">
             <div class="logo-area">
-                <img src="pgalogo.png" alt="PGA Logo" class="header-logo">
+                <img src="pgap.png" alt="PGA Logo" class="header-logo">
             </div>
             <div class="toggle-buttons">
                 <button id="lang-toggle" class="btn-toggle">AR/EN</button>
@@ -235,7 +277,7 @@
                 <li><a href="about.html" data-en="About" data-ar="حول">About</a></li>
                 <li><a href="projects.html" data-en="Projects" data-ar="المشاريع">Projects</a></li>
                 <li><a href="contact.html" data-en="Contact" data-ar="تواصل معنا">Contact</a></li>
-                <li><a href="gmail.html" class="active" data-en="Gmail" data-ar="جيميل">Gmail</a></li>
+
                 <div class="nav-indicator"></div>
             </ul>
         </nav>
@@ -258,7 +300,8 @@
     </main>
 
     <footer>
-        <p data-en="© 2026 All Rights Reserved" data-ar="© 2026 جميع الحقوق محفوظة">© 2026 All Rights Reserved</p>
+        <p data-en="© 2026 PGA Studio - All Rights Reserved | " data-ar="© 2026 PGA Studio - جميع الحقوق محفوظة | ">© 2026 PGA Studio - All Rights Reserved | </p>
+        <p style="display: inline;"><a href="privacy.html" style="color: inherit; text-decoration: underline;" data-en="Privacy Policy" data-ar="سياسة الخصوصية">Privacy Policy</a></p>
     </footer>
 
     <script>
@@ -280,7 +323,38 @@
         const emailText = document.getElementById('emailText');
         const copyBtn = document.getElementById('copyEmail');
         const copyHint = document.getElementById('copyHint');
-        let currentLang = 'en';
+        const storedLang = localStorage.getItem('selectedLang');
+        let currentLang = storedLang || document.documentElement.lang || 'en';
+
+        const arabicLinkId = 'arabic-fonts';
+        const ensureArabicFont = (enable) => {
+            if (enable) {
+                if (!document.getElementById(arabicLinkId)) {
+                    const link = document.createElement('link');
+                    link.id = arabicLinkId;
+                    link.rel = 'stylesheet';
+                    link.href = 'fonts.css';
+                    document.head.appendChild(link);
+                }
+            } else {
+                const existing = document.getElementById(arabicLinkId);
+                if (existing) existing.remove();
+            }
+        };
+
+        const setLanguage = (lang) => {
+            currentLang = lang;
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            document.querySelectorAll('[data-en][data-ar]').forEach(el => {
+                el.innerHTML = el.getAttribute(`data-${lang}`);
+            });
+            ensureArabicFont(lang === 'ar');
+            localStorage.setItem('selectedLang', lang);
+            updateIndicator();
+        };
+
+        setLanguage(currentLang);
 
         if (localStorage.getItem('theme') === 'dark') {
             body.classList.replace('light-mode', 'dark-mode');
@@ -303,6 +377,7 @@
             document.querySelectorAll('[data-en][data-ar]').forEach(el => {
                 el.innerHTML = el.getAttribute(`data-${lang}`);
             });
+            ensureArabicFont(lang === 'ar');
             updateIndicator();
         };
 

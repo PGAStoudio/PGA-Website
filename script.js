@@ -40,21 +40,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 3. Language Switcher (Localization) ---
     const langBtn = document.getElementById('lang-toggle');
-    let currentLang = 'en'; // الافتراضي
+    const storedLang = localStorage.getItem('selectedLang');
+    let currentLang = storedLang || document.documentElement.lang || 'en';
+
+    // تحميل/إزالة ملف الخط الخاص بالعربية ديناميكياً
+    const arabicLinkId = 'arabic-fonts';
+    const ensureArabicFont = (enable) => {
+        if (enable) {
+            if (!document.getElementById(arabicLinkId)) {
+                const link = document.createElement('link');
+                link.id = arabicLinkId;
+                link.rel = 'stylesheet';
+                link.href = 'fonts.css';
+                document.head.appendChild(link);
+            }
+        } else {
+            const existing = document.getElementById(arabicLinkId);
+            if (existing) existing.remove();
+        }
+    };
+
+    const setLanguage = (lang) => {
+        currentLang = lang;
+        document.documentElement.lang = lang;
+        document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+        document.querySelectorAll('[data-en][data-ar]').forEach(el => {
+            el.innerHTML = el.getAttribute(`data-${lang}`);
+        });
+        ensureArabicFont(lang === 'ar');
+        localStorage.setItem('selectedLang', lang);
+        setTimeout(updateIndicator, 50);
+    };
+
+    setLanguage(currentLang);
 
     langBtn.addEventListener('click', () => {
-        currentLang = currentLang === 'en' ? 'ar' : 'en';
-        document.documentElement.lang = currentLang;
-        document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
-
-        // تحديث جميع النصوص التي تحتوي على data-ar و data-en
-        const translatableElements = document.querySelectorAll('[data-en][data-ar]');
-        translatableElements.forEach(el => {
-            el.innerHTML = el.getAttribute(`data-${currentLang}`);
-        });
-
-        // تحديث مؤشر الـ Navbar بعد تغيير اتجاه الصفحة
-        setTimeout(updateIndicator, 50); 
+        setLanguage(currentLang === 'en' ? 'ar' : 'en');
     });
 
 

@@ -48,6 +48,47 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before,
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            transform: translateZ(0);
+        }
+
+        body::before {
+            background-image:
+                radial-gradient(circle at 15% 18%, rgba(255,255,255,0.14), transparent 14%),
+                radial-gradient(circle at 80% 12%, rgba(255,255,255,0.12), transparent 12%),
+                radial-gradient(circle at 45% 72%, rgba(255,255,255,0.08), transparent 18%);
+            filter: blur(12px);
+            opacity: 0.45;
+            animation: drift-circles 24s ease-in-out infinite alternate;
+        }
+
+        body::after {
+            background-image:
+                radial-gradient(circle at 32% 82%, rgba(255,255,255,0.10), transparent 13%),
+                radial-gradient(circle at 70% 42%, rgba(255,255,255,0.08), transparent 12%);
+            filter: blur(16px);
+            opacity: 0.28;
+            animation: drift-circles 28s ease-in-out infinite alternate-reverse;
+        }
+
+        body > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes drift-circles {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(-18px) scale(1.02); }
         }
 
         /* --- Header & Navigation --- */
@@ -66,10 +107,11 @@
             width: 60px;
             height: 60px;
             background-color: #3b2a22;
-            border-radius: 10px;
+            border-radius: 50%;
             padding: 5px;
             cursor: pointer;
             box-shadow: var(--shadow);
+            object-fit: cover;
         }
 
         .btn-toggle {
@@ -201,7 +243,7 @@
     <header>
         <div class="top-controls">
             <div class="logo-area">
-                <img src="pgalogo.png" alt="PGA Logo" class="header-logo">
+                <img src="pgap.png" alt="PGA Logo" class="header-logo">
             </div>
             <div class="toggle-buttons">
                 <button id="lang-toggle" class="btn-toggle">AR/EN</button>
@@ -222,39 +264,43 @@
     </header>
 
     <main class="about-main">
-        <!-- قسم النصوص الطويلة القابلة للتمرير السلس -->
+
         <div class="about-content-box">
+
             <h1 data-en="Our Story" data-ar="قصتنا">Our Story</h1>
+
+            <p data-en="PGA is not just a traditional game development studio; it is an Arab entity launched with a global vision, striving to shatter all boundaries and revolutionize the gaming industry from its very roots. We believe that games are more than mere entertainment—they are living, breathing worlds we inhabit. Therefore, we established this studio as the ultimate gateway to unleash the boundless creativity of developers, writers, and artists. Together, we craft exceptional experiences that compete on a global scale and leave a lasting mark at the heart of this industry." 
+               data-ar="PGA ليس مجرد أستوديو تقليدي لتطوير الألعاب؛ بل هو الكيان العربي الذي انطلق برؤية عالمية تسعى لتحطيم كافة التحديات وتغيير مفاهيم صناعة الألعاب من جذورها. نحن نؤمن بأن الألعاب ليست مجرد وسيلة ترفيه، بل هي عوالم حية نعيش بداخلها. لذلك، قمنا بتأسيس هذا الأستوديو ليكون البوابة الكبرى التي تُطلق العنان للإبداع اللامحدود للمطورين، الكُتاب، والرسامين، ولنصنع معاً تجارب استثنائية ترتقي للتصنيف العالمي وتضع بصمتنا في قلب هذه الصناعة.">
+               PGA is not just a traditional game development studio; it is an Arab entity launched with a global vision, striving to shatter all boundaries and revolutionize the gaming industry from its very roots. We believe that games are more than mere entertainment—they are living, breathing worlds we inhabit. Therefore, we established this studio as the ultimate gateway to unleash the boundless creativity of developers, writers, and artists. Together, we craft exceptional experiences that compete on a global scale and leave a lasting mark at the heart of this industry.
+            </p>
+            <p data-en="Absolute professionalism is the core of everything we create. At PGA, we believe that game development goes far beyond writing code; it is an art form that seamlessly blends deep storytelling, captivating atmospheres, and precise interactive design. Every line of code we write and every detail we craft is dedicated to delivering high-performance mechanics fused with unique, innovative gameplay concepts. We obsess over the finest details to ensure flawless gameplay and total player immersion in our worlds." 
+               data-ar="تتجسد الاحترافية المطلقة في صميم كل ما نقوم بصنعه. نحن في PGA نؤمن بأن تطوير الألعاب لا يقتصر فقط على كتابة الكود البرمجي؛ بل هو فن يجمع بين السرد القصصي العميق، بناء الأجواء الساحرة، والتصميم التفاعلي الدقيق. كل سطر برمجي نكتبه وكل تفصيل نصممه يهدف إلى تقديم آليات لعب ميكانيكية عالية الأداء ممزوجة بأفكار فريدة ومبتكرة. نركز على أدق التفاصيل لضمان أسلوب لعب خالٍ من العيوب واندماج تام للاعبين في عوالمنا.">
+               Absolute professionalism is the core of everything we create. At PGA, we believe that game development goes far beyond writing code; it is an art form that seamlessly blends deep storytelling, captivating atmospheres, and precise interactive design. Every line of code we write and every detail we craft is dedicated to delivering high-performance mechanics fused with unique, innovative gameplay concepts. We obsess over the finest details to ensure flawless gameplay and total player immersion in our worlds.
+            </p>
+
+            <p data-en="Unlike many others, we do not view game development merely as a means to turn a quick profit. Instead, we see it as a canvas to nurture our creativity and deliver true artistic masterpieces. Our ambition knows no bounds; our sights are set on developing massive, futuristic projects and producing high-tier (AAA) games. Whether we are building breathtaking, immersive solo adventures or intensely competitive multiplayer experiences, our constant goal is to elevate games to unprecedented levels of quality and brilliance." 
+               data-ar="نحن لا ننظر إلى تطوير الألعاب كمجرد مشاريع لربح الأموال السريعة كغيرنا، بل نعتبره مساحة لنمو إبداعاتنا وتقديم روائع فنية. طموحنا لا يعرف الحدود، حيث نهدف إلى تطوير مشاريع مستقبلية ضخمة وإنتاج ألعاب من فئة الإنتاج العالي (AAA). سواء كنا نطور مغامرات فردية غامرة تعتصر الأنفاس، أو ألعاباً جماعية تنافسية حماسية، فإننا نسعى دائماً لأخذ الألعاب إلى مستويات غير مسبوقة من الجودة والروعة.">
+               Unlike many others, we do not view game development merely as a means to turn a quick profit. Instead, we see it as a canvas to nurture our creativity and deliver true artistic masterpieces. Our ambition knows no bounds; our sights are set on developing massive, futuristic projects and producing high-tier (AAA) games. Whether we are building breathtaking, immersive solo adventures or intensely competitive multiplayer experiences, our constant goal is to elevate games to unprecedented levels of quality and brilliance.
+            </p>
+
+            <p data-en="Our ultimate strategic goal is to cement PGA as a leading brand and a formidable powerhouse in the global market. Our ambitions extend beyond simply launching great games; we aim to build a lasting legacy through independent publishing and forging strong strategic partnerships. We are determined to become a cornerstone of the industry and the premier destination for players seeking top-tier quality and experiences that will forever change how they view the gaming world." 
+               data-ar="إن هدفنا الاستراتيجي هو ترسيخ اسم PGA كعلامة رائدة وقوة لا يستهان بها في السوق العالمي. لا يقتصر طموحنا على إطلاق ألعاب قوية فحسب، بل يمتد إلى بناء إرث حقيقي من خلال النشر المستقل وتكوين شراكات استراتيجية قوية. نحن نهدف إلى أن نكون الرقم الصعب والوجهة الأولى للاعبين الذين يبحثون عن الجودة العالية، والتجارب التي تغير نظرتهم لعالم الألعاب للأبد.">
+                Our ultimate strategic goal is to cement PGA as a leading brand and a formidable powerhouse in the global market. Our ambitions extend beyond simply launching great games; we aim to build a lasting legacy through independent publishing and forging strong strategic partnerships. We are determined to become a cornerstone of the industry and the premier destination for players seeking top-tier quality and experiences that will forever change how they view the gaming world.
+            </p>
             
-            <p data-en="PGA Studio started with a simple vision: to push the boundaries of modern game programming and create experiences that stick with players forever. Our journey began with a small group of ambitious developers and has grown into a structured engine of creativity." 
-               data-ar="بدأ استوديو PGA برؤية بسيطة: تخطي حدود برمجة الألعاب الحديثة وصنع تجارب تظل راسخة في أذهان اللاعبين للأبد. بدأت رحلتنا بمجموعة صغيرة من المطورين الطموحين ونمت لتصبح محركاً متكاملاً للإبداع.">
-                PGA Studio started with a simple vision: to push the boundaries of modern game programming and create experiences that stick with players forever. Our journey began with a small group of ambitious developers and has grown into a structured engine of creativity.
-            </p>
-
-            <p data-en="We believe that game development is not just about writing code; it's about storytelling, atmosphere, and interactive design. Every line of logic we implement is geared towards delivering high-performance mechanics paired with unique gameplay concepts."
-               data-ar="نحن نؤمن بأن تطوير الألعاب لا يقتصر فقط على كتابة الكود البرمجي؛ بل يتعلق بسرد القصص، بناء الأجواء، والتصميم التفاعلي. كل سطر برمجى نكتبه يهدف إلى تقديم آليات ميكانيكية عالية الأداء ممزوجة بأفكار لعب فريدة.">
-                We believe that game development is not just about writing code; it's about storytelling, atmosphere, and interactive design. Every line of logic we implement is geared towards delivering high-performance mechanics paired with unique gameplay concepts.
-            </p>
-
-            <p data-en="Our ultimate goals target both indie publishing and collaborative milestones. Whether we are forging atmospheric adventures or competitive multiplayers, the focus stays identical: flawless gameplay and lasting player immersion."
-               data-ar="تستهدف أهدافنا النهائية النشر المستقل وتحقيق شراكات قوية. سواء كنا نطور مغامرات غامرة أو ألعاباً جماعية تنافسية، يظل التركيز واحداً وثابتاً: أسلوب لعب خالٍ من العيوب واندماج تام للاعبين.">
-                Our ultimate goals target both indie publishing and collaborative milestones. Whether we are forging atmospheric adventures or competitive multiplayers, the focus stays identical: flawless gameplay and lasting player immersion.
-            </p>
-
-            <p data-en="As we continue to grow through 2026 and beyond, we expand our toolsets and pipelines to incorporate cutting-edge design trends, ensuring our community always receives top-tier content."
-               data-ar="ومع استمرارنا في النمو خلال عام 2026 وما بعده، نعمل على توسيع أدواتنا ومساراتنا البرمجية لدمج أحدث اتجاهات التصميم، مما يضمن حصول مجتمعنا دائماً على محتوى من الصف الأول.">
-                As we continue to grow through 2026 and beyond, we expand our toolsets and pipelines to incorporate cutting-edge design trends, ensuring our community always receives top-tier content.
-            </p>
+            <p data-en="#" 
+                data-ar="في PGA، نحن نكتب المستقبل بأيدينا. هذا الأستوديو هو المكان الذي تتحول فيه الأفكار المستحيلة إلى واقع ملموس، وهو الوعد الذي نقطعه لمجتمع اللاعبين بأن نقدم لهم أفضل التجارب التي ستُخلد في ذاكرتهم. نحن هنا لنصنع الفارق، ونرحب بكم لتكونوا جزءاً من رحلتنا نحو إعادة تعريف عالم الألعاب.">
+                At PGA, we are writing the future with our own hands. This studio is where impossible ideas transform into tangible reality. It is our promise to the gaming community: to deliver the greatest experiences that will be etched in their memories forever. We are here to make a real difference, and we invite you to join us on our journey to redefine the world of gaming.                </p>
         </div>
 
-        <!-- الجانب الأيمن ويحتوي على الشعار المقابل للنص المماثل لملف about.jpg -->
         <div class="about-image-box">
             <img src="pga.png" alt="PGA Image" class="main-image">
         </div>
     </main>
 
     <footer>
-        <p data-en="© 2026 All Rights Reserved" data-ar="© 2026 جميع الحقوق محفوظة">© 2026 All Rights Reserved</p>
+        <p data-en="© 2026 PGA Studio - All Rights Reserved | " data-ar="© 2026 PGA Studio - جميع الحقوق محفوظة | ">© 2026 PGA Studio - All Rights Reserved | </p>
+        <p style="display: inline;"><a href="privacy.html" style="color: inherit; text-decoration: underline;" data-en="Privacy Policy" data-ar="سياسة الخصوصية">Privacy Policy</a></p>
     </footer>
 
     <script>
@@ -294,19 +340,41 @@
 
             // --- 3. Language Switcher (Localization) ---
             const langBtn = document.getElementById('lang-toggle');
-            let currentLang = 'en';
+            const storedLang = localStorage.getItem('selectedLang');
+            let currentLang = storedLang || document.documentElement.lang || 'en';
+
+            const arabicLinkId = 'arabic-fonts';
+            const ensureArabicFont = (enable) => {
+                if (enable) {
+                    if (!document.getElementById(arabicLinkId)) {
+                        const link = document.createElement('link');
+                        link.id = arabicLinkId;
+                        link.rel = 'stylesheet';
+                        link.href = 'fonts.css';
+                        document.head.appendChild(link);
+                    }
+                } else {
+                    const existing = document.getElementById(arabicLinkId);
+                    if (existing) existing.remove();
+                }
+            };
+
+            const setLanguage = (lang) => {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+                document.querySelectorAll('[data-en][data-ar]').forEach(el => {
+                    el.innerHTML = el.getAttribute(`data-${lang}`);
+                });
+                ensureArabicFont(lang === 'ar');
+                localStorage.setItem('selectedLang', lang);
+                setTimeout(updateIndicator, 50);
+            };
+
+            setLanguage(currentLang);
 
             langBtn.addEventListener('click', () => {
-                currentLang = currentLang === 'en' ? 'ar' : 'en';
-                document.documentElement.lang = currentLang;
-                document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
-
-                const translatableElements = document.querySelectorAll('[data-en][data-ar]');
-                translatableElements.forEach(el => {
-                    el.innerHTML = el.getAttribute(`data-${currentLang}`);
-                });
-
-                setTimeout(updateIndicator, 50); 
+                setLanguage(currentLang === 'en' ? 'ar' : 'en');
             });
         });
     </script>

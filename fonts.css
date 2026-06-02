@@ -1,0 +1,18 @@
+/* Fonts loader: Cascadia Code for Arabic text
+   Place the font files `CascadiaCode.woff2` (and optionally `CascadiaCode.woff`) inside the `fonts/` folder. */
+
+@font-face {
+  font-family: 'Cascadia Code';
+  src: url('fonts/CascadiaCode.woff2') format('woff2'),
+       url('fonts/CascadiaCode.woff') format('woff');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Apply Cascadia Code for Arabic content (RTL / lang=ar). Fall back to the existing Dela Gothic One where appropriate. */
+/* Apply Cascadia Code to elements that explicitly carry Arabic translation data.
+   This avoids changing English text layout or appearance when Arabic is selected. */
+[data-ar], :lang(ar) {
+  font-family: 'Cascadia Code', 'Dela Gothic One', sans-serif;
+}

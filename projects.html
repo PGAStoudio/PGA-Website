@@ -49,6 +49,47 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before,
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            transform: translateZ(0);
+        }
+
+        body::before {
+            background-image:
+                radial-gradient(circle at 15% 18%, rgba(255,255,255,0.14), transparent 14%),
+                radial-gradient(circle at 80% 12%, rgba(255,255,255,0.12), transparent 12%),
+                radial-gradient(circle at 45% 72%, rgba(255,255,255,0.08), transparent 18%);
+            filter: blur(12px);
+            opacity: 0.45;
+            animation: drift-circles 24s ease-in-out infinite alternate;
+        }
+
+        body::after {
+            background-image:
+                radial-gradient(circle at 32% 82%, rgba(255,255,255,0.10), transparent 13%),
+                radial-gradient(circle at 70% 42%, rgba(255,255,255,0.08), transparent 12%);
+            filter: blur(16px);
+            opacity: 0.28;
+            animation: drift-circles 28s ease-in-out infinite alternate-reverse;
+        }
+
+        body > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes drift-circles {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(-18px) scale(1.02); }
         }
 
         /* --- Header & Navigation --- */
@@ -65,10 +106,11 @@
             width: 60px;
             height: 60px;
             background-color: #3b2a22;
-            border-radius: 10px;
+            border-radius: 50%;
             padding: 5px;
             cursor: pointer;
             box-shadow: var(--shadow);
+            object-fit: cover;
         }
 
         .btn-toggle {
@@ -232,7 +274,7 @@
     <header>
         <div class="top-controls">
             <div class="logo-area">
-                <img src="pgalogo.png" alt="PGA Logo" class="header-logo">
+                <img src="pgap.png" alt="PGA Logo" class="header-logo">
             </div>
             <div class="toggle-buttons">
                 <button id="lang-toggle" class="btn-toggle">AR/EN</button>
@@ -261,20 +303,24 @@
             <h2 class="project-title" data-en="virus 94" data-ar="فايروس 94">virus 94</h2>
             
             <div class="project-card">
-                <img src="virus94.png" alt="Virus 94 Game" class="project-image">
+                <img src="virus94typeing.png" alt="Virus 94 Game" class="project-image">
                 
                 <div class="project-text">
-                    <p data-en="Dive into the world of Virus 94. A thrilling and unique gaming experience designed to challenge your skills. Navigate through complex systems, overcome security protocols, and survive the digital onslaught in this fast-paced adventure." 
-                       data-ar="اغص في عالم فايروس 94. تجربة لعب مثيرة وفريدة مصممة لتحدي مهاراتك. تنقل عبر الأنظمة المعقدة، وتجاوز البروتوكولات الأمنية، وابق على قيد الحياة في هذا الهجوم الرقمي السريع.">
-                        Dive into the world of Virus 94. A thrilling and unique gaming experience designed to challenge your skills. Navigate through complex systems, overcome security protocols, and survive the digital onslaught in this fast-paced adventure.
-                    </p>
+<p data-en="Are you ready to escape your monotonous reality and cling to the last shred of survival?
+Welcome to Virus 94—the psychological horror experience set to redefine survival gaming. Here, mercy does not exist, and the thin line between humanity and monstrosity has completely vanished. As the disease ravages everything in its path, the fate of your kind hangs in your hands. But survival comes with a price... Are you ready to sacrifice everything for them, or will your survival instinct drive you to betray them? Remember, as you walk through this darkness: the real danger doesn't lurk in the monsters hunting you, but in the mirrors... For your first and ultimate enemy is yourself!" 
+   data-ar="هل أنت مستعد للهروب من واقعك الرتيب، والتشبث بآخر خيوط النجاة؟
+مرحباً بك في Virus 94؛ التجربة النفسية المرعبة التي ستعيد تعريف ألعاب البقاء. هنا، لا توجد رحمة، والخطوط الفاصلة بين الإنسانية والوحشية قد تلاشت تماماً. المرض يجتاح كل شيء، ومصير بني جنسك معلق بين يديك. لكن البقاء له ثمن.. هل أنت مستعد للتضحية بكل شيء من أجلهم، أم أن غريزة البقاء ستدفعك لخيانتهم؟ تذكّر دائماً وأنت تسير في هذا الظلام: الخطر الحقيقي لا يكمن في الوحوش التي تطاردك، بل في المرايا.. فعدوك الأول والأخير هو أنت!">
+Are you ready to escape your monotonous reality and cling to the last shred of survival?
+
+Welcome to Virus 94—the psychological horror experience set to redefine survival gaming. Here, mercy does not exist, and the thin line between humanity and monstrosity has completely vanished. As the disease ravages everything in its path, the fate of your kind hangs in your hands. But survival comes with a price... Are you ready to sacrifice everything for them, or will your survival instinct drive you to betray them? Remember, as you walk through this darkness: the real danger doesn't lurk in the monsters hunting you, but in the mirrors... For your first and ultimate enemy is yourself!                    </p>
                 </div>
             </div>
         </div>
     </main>
 
     <footer>
-        <p data-en="© 2026 All Rights Reserved" data-ar="© 2026 جميع الحقوق محفوظة">© 2026 All Rights Reserved</p>
+        <p data-en="© 2026 PGA Studio - All Rights Reserved | " data-ar="© 2026 PGA Studio - جميع الحقوق محفوظة | ">© 2026 PGA Studio - All Rights Reserved | </p>
+        <p style="display: inline;"><a href="privacy.html" style="color: inherit; text-decoration: underline;" data-en="Privacy Policy" data-ar="سياسة الخصوصية">Privacy Policy</a></p>
     </footer>
 
     <script>
@@ -314,19 +360,41 @@
 
             // --- 3. Language Switcher (Localization) ---
             const langBtn = document.getElementById('lang-toggle');
-            let currentLang = 'en';
+            const storedLang = localStorage.getItem('selectedLang');
+            let currentLang = storedLang || document.documentElement.lang || 'en';
+
+            const arabicLinkId = 'arabic-fonts';
+            const ensureArabicFont = (enable) => {
+                if (enable) {
+                    if (!document.getElementById(arabicLinkId)) {
+                        const link = document.createElement('link');
+                        link.id = arabicLinkId;
+                        link.rel = 'stylesheet';
+                        link.href = 'fonts.css';
+                        document.head.appendChild(link);
+                    }
+                } else {
+                    const existing = document.getElementById(arabicLinkId);
+                    if (existing) existing.remove();
+                }
+            };
+
+            const setLanguage = (lang) => {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+                document.querySelectorAll('[data-en][data-ar]').forEach(el => {
+                    el.innerHTML = el.getAttribute(`data-${lang}`);
+                });
+                ensureArabicFont(lang === 'ar');
+                localStorage.setItem('selectedLang', lang);
+                setTimeout(updateIndicator, 50);
+            };
+
+            setLanguage(currentLang);
 
             langBtn.addEventListener('click', () => {
-                currentLang = currentLang === 'en' ? 'ar' : 'en';
-                document.documentElement.lang = currentLang;
-                document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
-
-                const translatableElements = document.querySelectorAll('[data-en][data-ar]');
-                translatableElements.forEach(el => {
-                    el.innerHTML = el.getAttribute(`data-${currentLang}`);
-                });
-
-                setTimeout(updateIndicator, 50); 
+                setLanguage(currentLang === 'en' ? 'ar' : 'en');
             });
         });
     </script>
